@@ -71,7 +71,7 @@ export default function SignUpPage({ setState }: SignUpCardProps) {
                         <p> Continue with Github</p>
                     </Button>
                     <div>
-                        <p className="text-sm text-slate-600">Don't have an account? <span onClick={() => setState("signin")} className="text-blue-600 cursor-pointer">Sign up</span></p>
+                        <p className="text-sm text-slate-600">Don't have an account? <span onClick={() => setState("signin")} className="text-blue-600 cursor-pointer">Sign in</span></p>
                     </div>
                 </form>
             </div>

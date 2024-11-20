@@ -11,7 +11,7 @@ interface SignInCardProps {
     setState: (state: SignInForm) => void
 }
 
-export default function SignInPage({ setState }: SignInCardProps) {
+export default function SignInCard({ setState }: SignInCardProps) {
     const router = useRouter()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
