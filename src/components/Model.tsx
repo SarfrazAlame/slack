@@ -14,7 +14,7 @@ export default function Model(){
     }
 
     return (
-        <div>
+        <div className="h-full flex flex-col">
            <Header/>
            <CreateSideBar/>
         </div>

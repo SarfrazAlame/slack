@@ -3,9 +3,11 @@ import React from "react";
 
 export default function WorkspaceLayout({ children }: { children: React.ReactNode }) {
     return (
-        <div>
+        <div className="w-full h-full relative">
             <Model />
-            {children}
+            <div className="absolute top-12 left-1/4">
+                {children}
+            </div>
         </div>
     )
 }
