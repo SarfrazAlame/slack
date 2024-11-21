@@ -3,13 +3,17 @@ import { useCurrentUser } from "@/logic/auth/api/get-current-user"
 import { Loader } from "lucide-react"
 import { usePathname } from "next/navigation"
 import Lists from "./Lists"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "./ui/dropdown-menu"
+import {
+    DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
+    DropdownMenuSeparator, DropdownMenuTrigger
+} from "./ui/dropdown-menu"
 import { FiPlus } from "react-icons/fi";
 import UserButton from "./userButton"
-
+import { useCreateWorkspaceModel } from "@/logic/workspace/store/use-get-workspace-model"
 
 
 export default function CreateSideBar() {
+    const [open, setOpen] = useCreateWorkspaceModel()
     const { data, isLoading } = useCurrentUser()
     const pathname = usePathname()
 
@@ -38,9 +42,11 @@ export default function CreateSideBar() {
                         <DropdownMenuItem className="cursor-pointer h-14">
                             workspace
                         </DropdownMenuItem>
-                        <DropdownMenuItem className="cursor-pointer h-14">
+                        <DropdownMenuItem className="cursor-pointer h-14"
+                            onClick={() => setOpen(true)}
+                        >
                             <FiPlus className="size-16 bg-slate-200/40" />
-                            <p className="text-mg font-semibold"> Add a worksapce</p>
+                            <p className="text-mg font-semibold">Create a new workspace</p>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
