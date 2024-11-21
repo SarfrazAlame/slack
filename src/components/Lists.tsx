@@ -24,20 +24,20 @@ const List = [
     },
 ]
 
-export default function Lists(){
-    return(
-       <>
-        <div className="flex flex-col items-center gap-6 my-5">
-             {List.map((item) => {
-                const Icon = item.icon
-                return (
-                    <div key={item.name} className="flex flex-col items-center cursor-pointer">
-                        <Icon className="size-9 hover:bg-transparent/40 text-slate-300 p-1.5 rounded-md" />
-                        <p className="text-[13px] text-slate-300 font-semibold">{item.name}</p>
-                    </div>
-                )
-            })}
+export default function Lists() {
+    return (
+        <div className="">
+            <div className="flex flex-col items-center gap-6 my-5">
+                {List.map((item) => {
+                    const Icon = item.icon
+                    return (
+                        <div key={item.name} className="flex flex-col items-center cursor-pointer">
+                            <Icon className="size-9 hover:bg-transparent/40 text-slate-300 p-1.5 rounded-md" />
+                            <p className="text-[13px] text-slate-300 font-semibold">{item.name}</p>
+                        </div>
+                    )
+                })}
+            </div>
         </div>
-       </>
     )
-}
+}   
