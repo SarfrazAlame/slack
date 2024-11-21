@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ConvexAuthNextjsServerProvider } from "@convex-dev/auth/nextjs/server";
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";
-import Models from "@/components/Models";
 import { Providers } from "@/components/providers";
 import { Toaster } from "sonner";
 
@@ -36,7 +35,6 @@ export default function RootLayout({
         >
           <ConvexClientProvider>
           <Toaster/>
-            <Models />
             <Providers>
               {children}
             </Providers>

@@ -10,12 +10,16 @@ import {
 import { FiPlus } from "react-icons/fi";
 import UserButton from "./userButton"
 import { useCreateWorkspaceModel } from "@/logic/workspace/store/use-get-workspace-model"
+import { useGetWorkspaces } from "@/logic/workspace/api/use-get-workspace"
+import Link from "next/link"
 
 
 export default function CreateSideBar() {
     const [open, setOpen] = useCreateWorkspaceModel()
     const { data, isLoading } = useCurrentUser()
     const pathname = usePathname()
+
+    const { data: workspaces, isLoading: isWorkspaceLoading } = useGetWorkspaces()
 
     if (isLoading) {
         return (
@@ -39,9 +43,16 @@ export default function CreateSideBar() {
                     <DropdownMenuContent className="w-72">
                         <DropdownMenuLabel className="text-md">{name}</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem className="cursor-pointer h-14">
-                            workspace
-                        </DropdownMenuItem>
+                        {workspaces?.map((workspace) => (
+                            <Link key={workspace?._id} href={`/workspace/${workspace?._id}`}>
+                                <DropdownMenuItem className="cursor-pointer h-10 flex ">
+                                    <p className="text-lg font-semibold bg-slate-200 px-3 py-1 rounded-md">{workspace?.name.charAt(0).toUpperCase()}</p>
+                                    <p className="text-md ">{workspace?.name}</p>
+                                </DropdownMenuItem>
+                                <DropdownMenuSeparator />
+                            </Link>
+                        ))}
+
                         <DropdownMenuItem className="cursor-pointer h-14"
                             onClick={() => setOpen(true)}
                         >

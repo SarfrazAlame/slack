@@ -6,12 +6,15 @@ import { Button } from "../../../components/ui/button";
 import React, { useState } from "react";
 import { useCreateWorkspace } from "../api/use-create-workspace";
 import { toast } from "sonner";
+import { useGetWorkspaces } from "../api/use-get-workspace";
 
 export default function CreateWorkspaceModel() {
     const [open, setOpen] = useCreateWorkspaceModel()
     const [name, setName] = useState('')
 
     const { mutate, isPending } = useCreateWorkspace()
+    const {data, isLoading} = useGetWorkspaces()
+    
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -26,7 +29,7 @@ export default function CreateWorkspaceModel() {
     }
 
     return (
-        <Dialog open={!open}>
+        <Dialog open={open}>
             <DialogContent>
                 <DialogTitle>Add a workspace</DialogTitle>
                 <form className="space-y-4" onSubmit={handleSubmit}>
