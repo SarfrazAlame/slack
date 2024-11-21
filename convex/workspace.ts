@@ -18,13 +18,27 @@ export const create = mutation({
     args: {
         name: v.string()
     },
-    handler: async (ctx) => {
+    handler: async (ctx, args) => {
         const userId = await auth.getUserId(ctx)
         if (!userId) {
             throw new Error("Unauthenticated")
         }
         const joinCode = generateCode()
 
-        
+        const workspaceId = await ctx.db.insert('workspace', {
+            name: args.name,
+            joinCode,
+            userId
+        })
+
+        const memberId = await ctx.db.insert('member', {
+            userId,
+            workspaceId,
+            role: "admin"
+        })
+
+        return {
+            workspaceId
+        }
     }
 })
