@@ -43,14 +43,18 @@ export default function CreateSideBar() {
                     <DropdownMenuContent className="w-72">
                         <DropdownMenuLabel className="text-md">{name}</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        {workspaces?.map((workspace) => (
-                            <Link key={workspace?._id} href={`/workspace/${workspace?._id}`}>
-                                <DropdownMenuItem className="cursor-pointer h-10 flex ">
-                                    <p className="text-lg font-semibold bg-slate-200 px-3 py-1 rounded-md">{workspace?.name.charAt(0).toUpperCase()}</p>
-                                    <p className="text-md ">{workspace?.name}</p>
-                                </DropdownMenuItem>
-                                <DropdownMenuSeparator />
-                            </Link>
+                        {workspaces?.map((workspace, index) => (
+                            <div key={index}>
+                                {workspace?._id && (
+                                    <Link href={`/workspace/${workspace?._id}`}>
+                                        <DropdownMenuItem className="cursor-pointer h-10 flex ">
+                                            <p className="text-lg font-semibold bg-slate-200 px-3 py-1 rounded-md">{workspace?.name.charAt(0).toUpperCase()}</p>
+                                            <p className="text-md ">{workspace?.name}</p>
+                                        </DropdownMenuItem>
+                                        <DropdownMenuSeparator />
+                                    </Link>
+                                )}
+                            </div>
                         ))}
 
                         <DropdownMenuItem className="cursor-pointer h-14"
