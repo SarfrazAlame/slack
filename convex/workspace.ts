@@ -1,8 +1,6 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { auth } from "./auth";
-import { Id } from "./_generated/dataModel";
-import { useId } from "react";
 
 const generateCode = () => {
     const letter = '1234567890'
@@ -71,16 +69,21 @@ export const create = mutation({
     }
 })
 
-export const getWorkspaceId = query({
-    args:{},
-    handler: async(ctx)=>{
+export const getWorkspaceDetails = query({
+    args: { workspaceId: v.id('workspace') },
+    handler: async (ctx, args) => {
         const userId = await auth.getUserId(ctx)
 
-        if(!userId){
+        if (!userId) {
             return null
         }
 
-        
+        const member = await ctx.db.query('member').withIndex('by_workspace_id_user_id', (q) => q.eq('workspaceId', args.workspaceId).eq('userId', userId)).unique()
 
+        if (!member) {
+            return null
+        }
+
+        return await ctx.db.get(args.workspaceId)
     }
 })
