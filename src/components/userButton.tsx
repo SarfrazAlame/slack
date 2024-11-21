@@ -15,7 +15,7 @@ export default function UserButton() {
 
     return (
         <div>
-            <Image src={image!} alt="logo" width={40} height={40} className="rounded-md"/>
+            <Image src={image!} alt="logo" width={40} height={40} className="rounded-md cursor-pointer"/>
         </div>
     )
 }

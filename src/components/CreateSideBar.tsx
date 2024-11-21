@@ -3,7 +3,7 @@ import { useCurrentUser } from "@/logic/auth/api/get-current-user"
 import { Loader } from "lucide-react"
 import { usePathname } from "next/navigation"
 import Lists from "./Lists"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "./ui/dropdown-menu"
 import { FiPlus } from "react-icons/fi";
 import UserButton from "./userButton"
 
