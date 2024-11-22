@@ -12,16 +12,21 @@ import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
 import { toast } from "sonner";
 import Channels from "./Channels";
 import useGetChannel from "@/logic/channel/api/use-get-channel";
+import { useGetMember } from "@/logic/member/api/use-get-member";
+import Image from "next/image";
 
 export default function ChannelHeader() {
     const router = useRouter()
     const [open, setOpen] = useState(true)
+    const [openMessage, setOpenMessage] = useState(true)
     const [name, setName] = useState('')
     const workspaceId = useWorkspaceId()
     const { mutate, data } = useCreateChannel()
-    
-    const { data: channel, isLoading } = useGetChannel({ workspaceId })
-    
+
+    const { data: channel } = useGetChannel({ workspaceId })
+
+    const {data:member, isLoading} = useGetMember({workspaceId})
+
     const channelId = useMemo(() => channel?.channel[channel.channel.length - 1]?._id, [channel])
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -67,6 +72,17 @@ export default function ChannelHeader() {
                 {
                     open ? <Channels /> : null
                 }
+            </div>
+            <div className="my-8 flex items-center gap-0.5">
+                <p> {
+                    openMessage ? <IoMdArrowDropdown onClick={() => setOpenMessage(!openMessage)} className="text-white cursor-pointer" /> : <IoMdArrowDropright onClick={() => setOpenMessage(!openMessage)} className="text-white cursor-pointer" />
+                }</p>
+                <p className="text-slate-300 font-[500] text-13px hover:bg-purple-500/30 px-1 rounded-md cursor-pointer">Direct Messages</p>
+                {member?.member.map((mem)=>(
+                    <div key={mem._creationTime}>
+                        
+                    </div>
+                ))}
             </div>
         </>
     )

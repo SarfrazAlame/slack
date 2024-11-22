@@ -2,7 +2,6 @@ import { useCurrentUser } from "@/logic/auth/api/get-current-user"
 import { Loader } from "lucide-react"
 import Image from "next/image"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu"
-import { useAction, useConvexAuth } from "convex/react"
 import { useAuthActions } from "@convex-dev/auth/react"
 
 export default function UserButton() {

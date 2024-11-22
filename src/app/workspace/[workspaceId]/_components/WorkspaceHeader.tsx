@@ -8,9 +8,11 @@ import { DropdownMenuItem } from "@radix-ui/react-dropdown-menu";
 import { BsFilter } from "react-icons/bs";
 import { SlNote } from "react-icons/sl";
 import Hint from "@/components/Hint";
+import { useAuthActions } from "@convex-dev/auth/react";
 
 export default function WorkspaceHeader({ workspaceId }: { workspaceId: Id<'workspace'> }) {
     const { data, isLoading } = useGetworkspaceDetails({ workspaceId })
+    const {signOut} = useAuthActions()
     return (
         <div className="w-full flex justify-between items-center">
             <DropdownMenu>
@@ -35,7 +37,7 @@ export default function WorkspaceHeader({ workspaceId }: { workspaceId: Id<'work
                         Invite people to {data?.name}
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem className="text-sm flex items-center h-8 cursor-pointer">
+                    <DropdownMenuItem onClick={()=>signOut()} className="text-sm flex items-center h-8 cursor-pointer text-red-500">
                         Sign Out
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
