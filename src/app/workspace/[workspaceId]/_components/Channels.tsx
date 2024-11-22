@@ -11,11 +11,13 @@ export default function Channels() {
     const workspaceId = useWorkspaceId()
     const { data, isLoading } = useGetChannel({ workspaceId })
 
-    const channelId = useMemo(() => data?.channel[0]._id, [data])
+    const channelId = useMemo(() => data?.channel[data.channel.length-1]?._id, [data])
 
     useEffect(() => {
         if (data) {
-            router.replace(`${workspaceId}/channel/${channelId}`)
+            router.replace(`/workspace/${workspaceId}/channel/${channelId}`)
+        }else if(isLoading){
+            router.replace(`/workspace/${workspaceId}`)
         }
     }, [data])
 

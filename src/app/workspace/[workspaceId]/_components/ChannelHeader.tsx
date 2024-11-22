@@ -6,27 +6,30 @@ import { Input } from "@/components/ui/input";
 import { useWorkspaceId } from "@/hook/use-workspace-id";
 import { useCreateChannel } from "@/logic/channel/api/use-create-channel";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { GoPlus } from "react-icons/go";
 import { IoMdArrowDropdown, IoMdArrowDropright } from "react-icons/io";
 import { toast } from "sonner";
 import Channels from "./Channels";
+import useGetChannel from "@/logic/channel/api/use-get-channel";
 
 export default function ChannelHeader() {
     const router = useRouter()
     const [open, setOpen] = useState(true)
     const [name, setName] = useState('')
     const workspaceId = useWorkspaceId()
-
-
     const { mutate, data } = useCreateChannel()
+    
+    const { data: channel, isLoading } = useGetChannel({ workspaceId })
+    
+    const channelId = useMemo(() => channel?.channel[channel.channel.length - 1]?._id, [channel])
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         mutate({ name, workspaceId }, {
             onSuccess: () => {
                 toast.success(`channel created `)
-                // router.push(`/workspace/${workspaceId}/channel/${}`)
+                // router.replace(`/workspace/${workspaceId}/channel/${channelId}`)
             },
             onError: () => {
                 toast.error('failed to create')
@@ -63,7 +66,7 @@ export default function ChannelHeader() {
             </div>
             <div>
                 {
-                    open ? <Channels />:null
+                    open ? <Channels /> : null
                 }
             </div>
         </>
