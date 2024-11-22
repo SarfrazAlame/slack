@@ -19,7 +19,6 @@ import useGetworkspaceDetails from "@/logic/workspace/api/use-get-worksapce"
 export default function CreateSideBar({ workspaceId }: { workspaceId: Id<'workspace'> }) {
     const [open, setOpen] = useCreateWorkspaceModel()
     const { data, isLoading } = useCurrentUser()
-    const pathname = usePathname()
 
     const { data: workspaces, isLoading: isWorkspaceLoading } = useGetWorkspaces()
     const { data: worksapce, isLoading: workspaceLoading } = useGetworkspaceDetails({ workspaceId })
@@ -48,19 +47,21 @@ export default function CreateSideBar({ workspaceId }: { workspaceId: Id<'worksp
                     <DropdownMenuContent className="w-72">
                         <DropdownMenuLabel className="text-md">{name}</DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        {workspaces?.map((workspace, index) => (
-                            <div key={index}>
-                                {workspace?._id && (
-                                    <Link href={`/workspace/${workspace?._id}`}>
-                                        <DropdownMenuItem className="cursor-pointer h-10 flex ">
-                                            <p className="text-lg font-semibold bg-slate-200 px-3 py-1 rounded-md">{workspace?.name.charAt(0).toUpperCase()}</p>
-                                            <p className="text-md ">{workspace?.name}</p>
-                                        </DropdownMenuItem>
-                                        <DropdownMenuSeparator />
-                                    </Link>
-                                )}
-                            </div>
-                        ))}
+                        {workspaces?.map((workspace, index) => {
+                            return (
+                                <div key={index}>
+                                    {workspace?._id && (
+                                        <Link href={`/workspace/${workspace?._id}`}>
+                                            <DropdownMenuItem className="cursor-pointer h-10 flex ">
+                                                <p className="text-lg font-semibold bg-slate-200 px-3 py-1 rounded-md">{workspace?.name.charAt(0).toUpperCase()}</p>
+                                                <p className="text-md ">{workspace?.name}</p>
+                                            </DropdownMenuItem>
+                                            <DropdownMenuSeparator />
+                                        </Link>
+                                    )}
+                                </div>
+                            )
+                        })}
 
                         <DropdownMenuItem className="cursor-pointer h-14"
                             onClick={() => setOpen(true)}

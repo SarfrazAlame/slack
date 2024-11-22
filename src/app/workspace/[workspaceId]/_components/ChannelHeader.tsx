@@ -29,7 +29,6 @@ export default function ChannelHeader() {
         mutate({ name, workspaceId }, {
             onSuccess: () => {
                 toast.success(`channel created `)
-                // router.replace(`/workspace/${workspaceId}/channel/${channelId}`)
             },
             onError: () => {
                 toast.error('failed to create')
