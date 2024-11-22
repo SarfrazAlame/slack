@@ -12,6 +12,6 @@ export default function useGetChannel({ workspaceId }: useCreateChannelProp) {
 
     return {
         data,
-        isLoading 
+        isLoading
     }
 }
