@@ -45,7 +45,6 @@ export default function CreateSideBar({ workspaceId }: { workspaceId: Id<'worksp
                     {
                         workspaceLoading ? <Loader className="size-5 animate-spin text-muted-foreground" /> : <DropdownMenuTrigger className="bg-gray-400 px-3 py-1 rounded-md font-bold text-xl">{firstLetter}</DropdownMenuTrigger>
                     }
-
                     <DropdownMenuContent className="w-72">
                         <DropdownMenuLabel className="text-md">{name}</DropdownMenuLabel>
                         <DropdownMenuSeparator />

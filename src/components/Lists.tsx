@@ -1,4 +1,4 @@
-
+'use client'
 import { FaRegComments } from "react-icons/fa"
 import { GoBell } from "react-icons/go"
 import { IoIosMore } from "react-icons/io"
