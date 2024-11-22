@@ -2,9 +2,10 @@
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import CreateSideBar from "./CreateSideBar";
+import { Id } from "../../convex/_generated/dataModel";
 
 
-export default function Model(){
+export default function Model({workspaceId}:{workspaceId:Id<'workspace'>}){
     const [mounted,setMounted] = useState(false)
     useEffect(()=>{
         setMounted(true)
@@ -16,7 +17,7 @@ export default function Model(){
     return (
         <div className="h-full flex flex-col">
            <Header/>
-           <CreateSideBar/>
+           <CreateSideBar workspaceId={workspaceId} />
         </div>
     )
 }

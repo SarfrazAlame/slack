@@ -12,20 +12,17 @@ import UserButton from "./userButton"
 import { useCreateWorkspaceModel } from "@/logic/workspace/store/use-get-workspace-model"
 import { useGetWorkspaces } from "@/logic/workspace/api/use-get-workspace"
 import Link from "next/link"
+import { Id } from "../../convex/_generated/dataModel"
+import useGetworkspaceDetails from "@/logic/workspace/api/use-get-worksapce"
 
 
-export default function CreateSideBar() {
+export default function CreateSideBar({ workspaceId }: { workspaceId: Id<'workspace'> }) {
     const [open, setOpen] = useCreateWorkspaceModel()
     const { data, isLoading } = useCurrentUser()
     const pathname = usePathname()
 
     const { data: workspaces, isLoading: isWorkspaceLoading } = useGetWorkspaces()
-
-    if (isLoading) {
-        return (
-            <Loader className="size-4 animate-spin text-muted-foreground" />
-        )
-    }
+    const { data: worksapce, isLoading: workspaceLoading } = useGetworkspaceDetails({ workspaceId })
 
     if (!data) {
         return null
@@ -33,13 +30,22 @@ export default function CreateSideBar() {
 
     const { name, image } = data
 
-    const firstLetter = name?.charAt(0).toUpperCase()
+    const firstLetter = worksapce?.name.charAt(0).toUpperCase()
+
+    if (isLoading) {
+        return (
+            <Loader className="text-muted-foreground size-5 animate-spin" />
+        )
+    }
 
     return (
         <div className="bg-purple-900 h-full w-20 flex flex-col items-center justify-between">
             <div className=" flex flex-col items-center">
                 <DropdownMenu>
-                    <DropdownMenuTrigger className="bg-gray-400 px-3 py-1 rounded-md font-bold text-xl">{firstLetter}</DropdownMenuTrigger>
+                    {
+                        workspaceLoading ? <Loader className="size-5 animate-spin text-muted-foreground" /> : <DropdownMenuTrigger className="bg-gray-400 px-3 py-1 rounded-md font-bold text-xl">{firstLetter}</DropdownMenuTrigger>
+                    }
+
                     <DropdownMenuContent className="w-72">
                         <DropdownMenuLabel className="text-md">{name}</DropdownMenuLabel>
                         <DropdownMenuSeparator />
@@ -67,6 +73,7 @@ export default function CreateSideBar() {
                 </DropdownMenu>
                 <Lists />
             </div>
+
             <div className="my-2">
                 <UserButton />
             </div>
