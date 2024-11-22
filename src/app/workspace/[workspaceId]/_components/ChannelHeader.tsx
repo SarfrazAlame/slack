@@ -25,7 +25,7 @@ export default function ChannelHeader() {
 
     const { data: channel } = useGetChannel({ workspaceId })
 
-    const {data:member, isLoading} = useGetMember({workspaceId})
+    const { data: member, isLoading } = useGetMember({ workspaceId })
 
     const channelId = useMemo(() => channel?.channel[channel.channel.length - 1]?._id, [channel])
 
@@ -73,16 +73,27 @@ export default function ChannelHeader() {
                     open ? <Channels /> : null
                 }
             </div>
-            <div className="my-8 flex items-center gap-0.5">
-                <p> {
-                    openMessage ? <IoMdArrowDropdown onClick={() => setOpenMessage(!openMessage)} className="text-white cursor-pointer" /> : <IoMdArrowDropright onClick={() => setOpenMessage(!openMessage)} className="text-white cursor-pointer" />
-                }</p>
-                <p className="text-slate-300 font-[500] text-13px hover:bg-purple-500/30 px-1 rounded-md cursor-pointer">Direct Messages</p>
-                {member?.member.map((mem)=>(
-                    <div key={mem._creationTime}>
-                        
-                    </div>
-                ))}
+            <div className="">
+                <div className="mt-8 mb-2 flex items-center gap-0.5">
+                    <p> {
+                        openMessage ? <IoMdArrowDropdown onClick={() => setOpenMessage(!openMessage)} className="text-white cursor-pointer" /> : <IoMdArrowDropright onClick={() => setOpenMessage(!openMessage)} className="text-white cursor-pointer" />
+                    }</p>
+                    <p className="text-slate-300 font-[500] text-13px hover:bg-purple-500/30 px-1 rounded-md cursor-pointer">Direct Messages</p>
+
+                </div>
+                <div>
+                    {
+                        openMessage ? <> {
+                            member?.map((mem) => (
+                                <div key={mem._creationTime} className="flex gap-2 relative">
+                                    <Image src={mem.user?.image!} alt={mem.user?.name!} width={22} height={22} className="rounded-sm" />
+                                    <div className="h-2 w-2 bg-green-500 rounded-full absolute bottom-0 left-4 border border-purple-950 "></div>
+                                    <p className="text-[15px] font-medium text-slate-300">{mem.user?.name}</p>
+                                </div>
+                            ))
+                        }</> : null
+                    }
+                </div>
             </div>
         </>
     )

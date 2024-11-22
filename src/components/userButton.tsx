@@ -17,23 +17,27 @@ export default function UserButton() {
     }
 
     return (
-        <DropdownMenu>
-            <DropdownMenuTrigger>
-                <Image src={image!} alt="logo" width={40} height={40} className="rounded-md cursor-pointer" />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-                <DropdownMenuItem className="text-red-500" onClick={() => signOut()}>
-                    Sign Out
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                    Setting
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                    Profile
-                </DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
+        <>
+            <DropdownMenu>
+                <DropdownMenuTrigger>
+                    <Image src={image!} alt="logo" width={40} height={40} className="rounded-md cursor-pointer" />
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                    <DropdownMenuItem className="text-red-500" onClick={() => signOut()}>
+                        Sign Out
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                        Setting
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                        Profile
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+            <div className="h-2.5 w-2.5 bg-green-600 absolute bottom-3.5 left-[52.5px] rounded-full border border-purple-950">
+            </div>
+        </>
     )
 }
