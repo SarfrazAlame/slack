@@ -16,7 +16,7 @@ export default function WorkspaceHeader({ workspaceId }: { workspaceId: Id<'work
             <DropdownMenu>
                 <DropdownMenuTrigger className="flex gap-1 items-center cursor-pointer hover:bg-purple-500/20 px-2 py-1 rounded-sm transition-all">
                     {
-                        isLoading ? <Loader className="size-5 animate-spin text-muted-foreground" /> : <p className="font-semibold text-slate-200">{data?.name}</p>
+                        isLoading ? <Loader className="size-5 animate-spin text-muted-foreground" /> : <p className="font-bold text-lg text-slate-200">{data?.name}</p>
                     }
                     <IoIosArrowDown className="text-slate-200 font-bold" />
                 </DropdownMenuTrigger>
