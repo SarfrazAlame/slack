@@ -18,7 +18,7 @@ export default function CreateWorkspaceModel() {
     const { mutate, isPending } = useCreateWorkspace()
     const { data, isLoading } = useGetWorkspaces()
 
-    const workspaceId = useMemo(() => data?.[data.length-1]?._id, [data])
+    const workspaceId = useMemo(() => data?.[data.length - 1]?._id, [data])
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
