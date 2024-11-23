@@ -6,6 +6,7 @@ import { IoCheckmarkDone } from "react-icons/io5";
 import { useWorkspaceId } from "@/hook/use-workspace-id";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import { useResetJoinCode } from "@/logic/workspace/api/use-reset-joinCode";
 
 interface InviteModelProps {
     open: boolean,
@@ -18,6 +19,8 @@ export default function InviteModel({ open, joinCode, name, setOpen }: InviteMod
     const [click, setClick] = useState(false)
     const [clickCode, setClickCode] = useState(false)
     const workspaceId = useWorkspaceId()
+
+    const { mutate, data } = useResetJoinCode()
 
     const handleCopy = () => {
         setClick(true)
@@ -32,6 +35,17 @@ export default function InviteModel({ open, joinCode, name, setOpen }: InviteMod
         setClickCode(true)
         const copyCode = joinCode
         navigator.clipboard.writeText(copyCode.toString())
+    }
+
+    const handleReset = () => {
+        mutate({ workspaceId }, {
+            onSuccess: () => {
+                toast.success('Reset successfully')
+            },
+            onError: () => {
+                toast.error('failed to reset')
+            }
+        })
     }
 
     return (
@@ -50,7 +64,7 @@ export default function InviteModel({ open, joinCode, name, setOpen }: InviteMod
                     }
                 </div>
                 <div className="w-full flex items-center justify-between mt-4">
-                    <Button>
+                    <Button onClick={handleReset}>
                         Reset
                     </Button>
                     {

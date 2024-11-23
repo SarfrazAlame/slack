@@ -7,10 +7,10 @@ type RequestType = { workspaceId: Id<'workspace'> }
 type ResponceType = Id<'workspace'> | null
 
 type Options = {
-    onSuccess: (data: ResponceType) => void,
-    onError: (error:Error) => void,
-    onSettled: () => void
-    onThrowError: boolean
+    onSuccess?: (data: ResponceType) => void,
+    onError?: (error:Error) => void,
+    onSettled?: () => void
+    onThrowError?: boolean
 }
 
 export const useResetJoinCode = () => {

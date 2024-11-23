@@ -34,7 +34,7 @@ export const reset = mutation(({
 
         await ctx.db.patch(args.workspaceId, { joinCode })
 
-        return  args.workspaceId
+        return args.workspaceId
     }
 }))
 
@@ -112,3 +112,25 @@ export const getWorkspaceDetails = query({
         return await ctx.db.get(args.workspaceId)
     }
 })
+
+export const getInfoById = query({
+    args: {
+        workspaceId: v.id("workspace")
+    },
+    handler: async (ctx, args) => {
+        const userId = await auth.getUserId(ctx)
+        if (!userId) {
+            return null
+        }
+
+        const member = await ctx.db.query('member').withIndex('by_workspace_id_user_id', (q) => q.eq('workspaceId', args.workspaceId).eq('userId', userId)).unique()
+
+        const workspace = await ctx.db.get(args.workspaceId)
+
+        return {
+            name: workspace?.name,
+            isMember: !!member
+        }
+    }
+})
+
