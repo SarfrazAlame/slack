@@ -1,12 +1,11 @@
 'use client'
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Copy } from "lucide-react";
 import { IoCheckmarkDone } from "react-icons/io5";
-import { Button } from "@/components/ui/button";
 import { useWorkspaceId } from "@/hook/use-workspace-id";
 import { toast } from "sonner";
-
+import { Button } from "@/components/ui/button";
 
 interface InviteModelProps {
     open: boolean,
@@ -17,6 +16,7 @@ interface InviteModelProps {
 
 export default function InviteModel({ open, joinCode, name, setOpen }: InviteModelProps) {
     const [click, setClick] = useState(false)
+    const [clickCode, setClickCode] = useState(false)
     const workspaceId = useWorkspaceId()
 
     const handleCopy = () => {
@@ -28,6 +28,11 @@ export default function InviteModel({ open, joinCode, name, setOpen }: InviteMod
         })
     }
 
+    const handleCopyCode = () => {
+        setClickCode(true)
+        const copyCode = joinCode
+        navigator.clipboard.writeText(copyCode.toString())
+    }
 
     return (
         <Dialog open={open} onOpenChange={() => setOpen(false)}>
@@ -39,14 +44,24 @@ export default function InviteModel({ open, joinCode, name, setOpen }: InviteMod
                     Use the code below to invite people to your wordspace
                 </DialogDescription>
                 <div className="w-full flex justify-center items-center gap-2">
-                    <p className="text-center w-fit  text-2xl font-semibold text-gray-700 border p-1 rounded">{joinCode}</p>
+                    <p className="text-center w-fit  text-2xl font-semibold text-gray-700 tracking-wider" onClick={handleCopyCode}>{joinCode}</p>
                     {
-                        click ? <IoCheckmarkDone className="size-4 text-blue-600 cursor-pointer hover:shadow-xl" /> :
-                            <>
-                                <Copy onClick={handleCopy} className="size-4 text-blue-600 cursor-pointer hover:shadow-xl" />
-                            </>
+                        clickCode ? <IoCheckmarkDone className="size-4 mt-2" /> : <Copy onClick={handleCopyCode} className="size-4 mt-2 hover:text-blue-600 cursor-pointer" />
                     }
-
+                </div>
+                <div className="w-full flex items-center justify-between mt-4">
+                    <Button>
+                        Reset
+                    </Button>
+                    {
+                        click ? <Button variant={'ghost'}>
+                            Copy Link
+                            <IoCheckmarkDone />
+                        </Button> : <Button variant={'ghost'} onClick={handleCopy} className="hover:text-blue-600">
+                            Copy Link
+                            <Copy />
+                        </Button>
+                    }
                 </div>
             </DialogContent>
         </Dialog>

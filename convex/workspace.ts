@@ -14,6 +14,29 @@ const generateCode = () => {
     return code
 }
 
+export const reset = mutation(({
+    args: {
+        workspaceId: v.id('workspace')
+    },
+    handler: async (ctx, args) => {
+        const userId = await auth.getUserId(ctx)
+        if (!userId) {
+            throw new Error('Unauthorized')
+        }
+
+        const member = await ctx.db.query('member').withIndex('by_workspace_id_user_id', (q) => q.eq('workspaceId', args.workspaceId).eq('userId', userId)).unique()
+
+        if (!member || member.role !== 'admin') {
+            throw new Error('Unauthorized')
+        }
+
+        const joinCode = generateCode()
+
+        await ctx.db.patch(args.workspaceId, { joinCode })
+
+        return  args.workspaceId
+    }
+}))
 
 
 export const get = query({
