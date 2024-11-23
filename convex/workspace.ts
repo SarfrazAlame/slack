@@ -14,6 +14,8 @@ const generateCode = () => {
     return code
 }
 
+
+
 export const get = query({
     args: {},
     handler: async (ctx) => {

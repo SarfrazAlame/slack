@@ -9,12 +9,24 @@ import { BsFilter } from "react-icons/bs";
 import { SlNote } from "react-icons/sl";
 import Hint from "@/components/Hint";
 import { useAuthActions } from "@convex-dev/auth/react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { useState } from "react";
+import InviteModel from "./InviteModel";
 
 export default function WorkspaceHeader({ workspaceId }: { workspaceId: Id<'workspace'> }) {
+
+    const [InviteOpen, setInviteOpen] = useState(false)
+
     const { data, isLoading } = useGetworkspaceDetails({ workspaceId })
-    const {signOut} = useAuthActions()
+    const { signOut } = useAuthActions()
+
+    if (!data || data === undefined) {
+        return
+    }
+
     return (
         <div className="w-full flex justify-between items-center">
+            <InviteModel open={InviteOpen} setOpen={setInviteOpen} name={data.name} joinCode={data.joinCode} />
             <DropdownMenu>
                 <DropdownMenuTrigger className="flex gap-1 items-center cursor-pointer hover:bg-purple-500/20 px-2 py-1 rounded-sm transition-all">
                     {
@@ -33,16 +45,17 @@ export default function WorkspaceHeader({ workspaceId }: { workspaceId: Id<'work
                         </div>
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem className="text-sm flex items-center h-8 cursor-pointer">
+                    <DropdownMenuItem onClick={()=>setInviteOpen(true)} className="text-sm flex items-center h-8 cursor-pointer">
                         Invite people to {data?.name}
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={()=>signOut()} className="text-sm flex items-center h-8 cursor-pointer text-red-500">
+                    <DropdownMenuItem onClick={() => signOut()} className="text-sm flex items-center h-8 cursor-pointer text-red-500">
                         Sign Out
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                 </DropdownMenuContent>
             </DropdownMenu>
+
             <div className="flex gap-4 items-center">
                 <Hint lable="Filter conversations">
                     <BsFilter className="text-white size-4 cursor-pointer" />
