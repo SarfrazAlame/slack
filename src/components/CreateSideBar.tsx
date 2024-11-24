@@ -13,7 +13,7 @@ import { useCreateWorkspaceModel } from "@/logic/workspace/store/use-get-workspa
 import { useGetWorkspaces } from "@/logic/workspace/api/use-get-workspace"
 import Link from "next/link"
 import { Id } from "../../convex/_generated/dataModel"
-import useGetworkspaceDetails from "@/logic/workspace/api/use-get-worksapce"
+import useGetworkspaceDetails from "@/logic/workspace/api/use-get-worksapceDetails"
 
 
 export default function CreateSideBar({ workspaceId }: { workspaceId: Id<'workspace'> }) {

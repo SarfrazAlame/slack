@@ -3,7 +3,7 @@ import { useCallback, useMemo, useState } from "react"
 import { api } from "../../../../convex/_generated/api"
 import { Id } from "../../../../convex/_generated/dataModel"
 
-type RequestType = { name: string, workspaceId: Id<'workspace'> }
+type RequestType = { channelName: string, workspaceId: Id<'workspace'> }
 type ResponceType = Id<'channel'> | null
 
 type Options = {

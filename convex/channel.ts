@@ -4,7 +4,7 @@ import { auth } from "./auth";
 
 export const create = mutation({
     args: {
-        name: v.string(),
+        channelName: v.string(),
         workspaceId: v.id('workspace')
     },
     handler: async (ctx, args) => {
@@ -14,7 +14,7 @@ export const create = mutation({
         }
 
         const channelId = await ctx.db.insert('channel', {
-            name: args.name,
+            name: args.channelName,
             workspaceId: args.workspaceId
         })
 

@@ -1,5 +1,5 @@
 'use client'
-import useGetworkspaceDetails from "@/logic/workspace/api/use-get-worksapce";
+import useGetworkspaceDetails from "@/logic/workspace/api/use-get-worksapceDetails";
 import { Id } from "../../../../../convex/_generated/dataModel";
 import { IoIosArrowDown } from "react-icons/io";
 import { Loader } from "lucide-react";
