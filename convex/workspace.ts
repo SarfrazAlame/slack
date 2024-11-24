@@ -4,15 +4,52 @@ import { auth } from "./auth";
 
 const generateCode = () => {
     const letter = '1234567890'
-    let code = 0
+    let code = ''
     for (let i = 1; i < 7; i++) {
-        for (let j = 1; j < 1000000; j = j * 10) {
-            code += Math.floor(Math.random() * 10) * j
-        }
+            code += Math.floor(Math.random() * 10)
     }
 
-    return code
+    return code 
 }
+
+export const joinWorkspace = mutation({
+    args: {
+        workspaceId: v.id('workspace'),
+        joinCode: v.string()
+    },
+    handler: async (ctx, args) => {
+        const userId = await auth.getUserId(ctx)
+        if (!userId) {
+            throw new Error('Unauthorized')
+        }
+
+        const workspace = await ctx.db.get(args.workspaceId)
+
+        if (!workspace) {
+            throw new Error('Workspace not found')
+        }
+
+        const code = workspace?.joinCode
+
+        if (code !== args.joinCode) {
+            throw new Error('Invalid Code')
+        }
+
+        const existingMember = await ctx.db.query('member').withIndex('by_workspace_id_user_id', (q) => q.eq('workspaceId', args.workspaceId).eq("userId", userId)).unique()
+
+        if (existingMember) {
+            throw new Error('Already exist')
+        }
+
+        await ctx.db.insert('member', {
+            userId: userId,
+            workspaceId: args.workspaceId,
+            role: 'member'
+        })
+
+        return workspace
+    }
+})
 
 export const reset = mutation(({
     args: {

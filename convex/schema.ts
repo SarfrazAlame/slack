@@ -7,7 +7,7 @@ const schema = defineSchema({
     workspace: defineTable({
         name: v.string(),
         userId: v.id('users'),
-        joinCode: v.number()
+        joinCode: v.union(v.string(),v.number())
     }),
     member: defineTable({
         userId: v.id('users'),
