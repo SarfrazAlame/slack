@@ -18,9 +18,7 @@ export const create = mutation({
             workspaceId: args.workspaceId
         })
 
-        return {
-            channelId
-        }
+        return channelId
     }
 })
 

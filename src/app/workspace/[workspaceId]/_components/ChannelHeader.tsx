@@ -85,7 +85,7 @@ export default function ChannelHeader() {
                     {
                         openMessage ? <> {
                             member?.map((mem) => (
-                                <div key={mem._creationTime} className="flex gap-2 relative">
+                                <div key={mem._creationTime} className="flex gap-2 relative my-1.5 hover:bg-purple-500/20 py-0.5 cursor-pointer rounded-md">
                                     <Image src={mem.user?.image!} alt={mem.user?.name!} width={22} height={22} className="rounded-sm" />
                                     <div className="h-2 w-2 bg-green-500 rounded-full absolute bottom-0 left-4 border border-purple-950 "></div>
                                     <p className="text-[15px] font-medium text-slate-300">{mem.user?.name}</p>

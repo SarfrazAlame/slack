@@ -125,9 +125,7 @@ export const create = mutation({
             role: "admin"
         })
 
-        return {
-            workspaceId
-        }
+        return workspaceId
     }
 })
 

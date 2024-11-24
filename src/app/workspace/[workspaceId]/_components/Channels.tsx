@@ -17,8 +17,8 @@ export default function Channels() {
     useEffect(() => {
         if (data) {
             router.replace(`/workspace/${workspaceId}/channel/${channelId}`)
-        } else if (isLoading) {
-            router.replace(`/workspace/${workspaceId}`)
+        } else {
+            router.replace(`/`)
         }
     }, [data])
 

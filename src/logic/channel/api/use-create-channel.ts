@@ -31,7 +31,7 @@ export const useCreateChannel = () => {
             setError(null)
 
             const response = await mutation(values)
-            options.onSuccess?.(response.channelId)
+            options.onSuccess?.(response)
             return response
         } catch (error) {
             options.onError?.(error as Error)

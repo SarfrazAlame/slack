@@ -3,13 +3,12 @@ import { useChannelId } from "@/hook/use-channel-id"
 import { useWorkspaceId } from "@/hook/use-workspace-id"
 import useGetChannel from "@/logic/channel/api/use-get-channel"
 import { useRouter } from "next/navigation"
-import { useEffect, useMemo } from "react"
+import { useEffect, useMemo, useState } from "react"
 
 export default function Page() {
+
     const router = useRouter()
     const workspaceId = useWorkspaceId()
-    // const channelId = useChannelId()
-
 
     const { data, isLoading } = useGetChannel({ workspaceId })
 

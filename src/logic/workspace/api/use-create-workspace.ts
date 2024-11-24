@@ -34,7 +34,7 @@ export const useCreateWorkspace = () => {
             setError(null)
 
             const response = await mutation(values)
-            options.onSuccess?.(response.workspaceId)
+            options.onSuccess?.(response)
             return response
 
         } catch (error) {
