@@ -10,15 +10,19 @@ import { useGetWorkspaces } from "../api/use-get-workspace";
 import { useRouter } from "next/navigation";
 import { Loader } from "lucide-react";
 
-export default function CreateWorkspaceModel() {
+interface CreateWorkspaceModelProps {
+    open:boolean,
+    setOpen:any
+}
+
+export default function CreateWorkspaceModel({open,setOpen}:CreateWorkspaceModelProps) {
     const router = useRouter()
-    const [open, setOpen] = useCreateWorkspaceModel()
     const [name, setName] = useState('')
 
     const { mutate, isPending } = useCreateWorkspace()
     const { data, isLoading } = useGetWorkspaces()
 
-    const workspaceId = useMemo(() => data?.[data.length - 1]?._id, [data])
+    const workspaceId = useMemo(() => data?.[0]?._id, [data])
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()

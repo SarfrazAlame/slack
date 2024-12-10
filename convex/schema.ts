@@ -7,8 +7,8 @@ const schema = defineSchema({
     workspace: defineTable({
         name: v.string(),
         userId: v.id('users'),
-        joinCode: v.union(v.string(),v.number())
-    }),
+        joinCode: v.union(v.string(), v.number())
+    }).index('by_user_id', ['userId']),
     member: defineTable({
         userId: v.id('users'),
         workspaceId: v.id('workspace'),
@@ -19,7 +19,7 @@ const schema = defineSchema({
     channel: defineTable({
         name: v.string(),
         workspaceId: v.id('workspace'),
-    }).index('by_workspace_id',['workspaceId'])
+    }).index('by_workspace_id', ['workspaceId'])
 
 })
 

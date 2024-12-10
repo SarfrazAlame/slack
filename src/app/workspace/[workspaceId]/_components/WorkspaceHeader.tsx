@@ -9,7 +9,6 @@ import { BsFilter } from "react-icons/bs";
 import { SlNote } from "react-icons/sl";
 import Hint from "@/components/Hint";
 import { useAuthActions } from "@convex-dev/auth/react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useState } from "react";
 import InviteModel from "./InviteModel";
 

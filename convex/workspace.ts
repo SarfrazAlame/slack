@@ -75,7 +75,6 @@ export const reset = mutation(({
     }
 }))
 
-
 export const get = query({
     args: {},
     handler: async (ctx) => {
@@ -169,3 +168,21 @@ export const getInfoById = query({
     }
 })
 
+
+export const getWorkspaceByUserId = query({
+    args:{},
+    handler:async(ctx)=>{
+        const userId = await auth.getUserId(ctx)
+        if(!userId){
+            return null
+        }
+
+        const workspace = await ctx.db.query('workspace').withIndex('by_user_id',(q)=>q.eq("userId",userId)).collect()
+
+        if(!workspace){
+            return null
+        }
+
+        return workspace
+    }
+})

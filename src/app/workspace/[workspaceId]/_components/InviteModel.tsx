@@ -12,7 +12,7 @@ interface InviteModelProps {
     open: boolean,
     setOpen: (open: boolean) => void;
     name: string,
-    joinCode: number
+    joinCode: number|string
 }
 
 export default function InviteModel({ open, joinCode, name, setOpen }: InviteModelProps) {

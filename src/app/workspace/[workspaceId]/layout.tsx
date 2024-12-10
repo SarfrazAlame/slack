@@ -12,12 +12,12 @@ export default function WorkspaceLayout({ children }: { children: React.ReactNod
         <div className="w-full h-full flex">
             <div className="w-full h-full">
                 <Models />
-                <Model workspaceId={workspaceid}/>
+                <Model workspaceId={workspaceid} />
             </div>
             <div className="absolute top-8 left-20 flex w-[90%] h-[96.5%]">
                 <ResizablePanelGroup direction="horizontal" autoSaveId="ca-workspace-layout">
                     <ResizablePanel>
-                        <Toolbar workspaceId={workspaceid}/>
+                        <Toolbar workspaceId={workspaceid} />
                     </ResizablePanel>
                     <ResizableHandle />
                     <ResizablePanel>
